@@ -1,18 +1,19 @@
 $(document).ready(function () {
     //declaring inital array of topics which is tv shows
-    let topics = ["The Office", "Riverdale", "The Ranch", "Stranger Things", "Grey's Anatomy", "Criminal Minds", "Law & Order: Special Victims Unit"];
+    let topics = ["The Office", "Riverdale", "The Ranch", "Stranger Things", "The Simpsons", "Criminal Minds", "Rugrats"];
 
     //loop to go through array and append buttons
     for (let i = 0; i < topics.length; i++) {
-        let buttons = $("<button>" + topics[i] + "</button>")
+        let buttons = $("<button value='" + topics[i] + "'>" + topics[i] + "</button>")
         buttons.appendTo("#topics");
     }
 
     $("button").on("click", function () {
         let tvShow = $(this).attr("data-tvShow");
-        let queryURL = "https://api.giphy.com/v1/gifs/search?&api_key=f0j6tZXu8gyQYNHWKYatmQHRLfu96jlO&q=tv show&limit=10";
+        let searchStr = encodeURI($(this).val());
+        let queryURL = "https://api.giphy.com/v1/gifs/search?&api_key=f0j6tZXu8gyQYNHWKYatmQHRLfu96jlO&q=" + searchStr + "&limit=10&lang=en";
 
-        $ajax({
+        $.ajax({
             url: queryURL,
             method: "GET"
         })
@@ -47,4 +48,11 @@ $(document).ready(function () {
    
 
 });
+    
+
+
+    
+
+   
+
 
