@@ -35,19 +35,41 @@ $(document).ready(function () {
                 tvShowDiv.append(p);
                 tvShowDiv.append(tvShowImage);
 
-                $("#gifs-appear-here").prepend(tvShowDiv);
+               $("#gifs-appear-here").prepend(tvShowDiv);
+
             }
+        })
+    })
+
+    $(".gif").on("click", function() {
+        let state = $(this).attr("data-state");
+
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
+    })
+
+    ,function renderButtons() {
+        $("#tvShowButtons").empty();
+
+    }
+
+        $("#addTvShow").on("click", function(event){
+            event.preventDefault();
+
+            let topic = $("#tvShow-input").val().trim();
+            topics.push(topic);
+            $("form").trigger("reset")
+            renderButtons();
         });
     });
-    
 
-
-    
-    
-    //function to display info on topics by using gipfy api
    
 
-});
     
 
 
