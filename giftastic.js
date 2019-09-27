@@ -4,7 +4,8 @@ $(document).ready(function () {
 
     //loop to go through array and append buttons
     for (let i = 0; i < topics.length; i++) {
-        let buttons = $("<button value='" + topics[i] + "'>" + topics[i] + "</button>")
+        let buttons = $(`<button value="${topics[i]}">${topics[i]}</button>`);
+
         buttons.appendTo("#topics");
     }
 
@@ -30,18 +31,25 @@ $(document).ready(function () {
                 let p = $("<p>").text("Rating: " + results[i].rating);
 
                 let tvShowImage = $("<img>");
-                tvShowImage.attr("src", results[i].images.fixed_height.url);
+                tvShowImage.attr("src", results[i].images.fixed_height_still.url);
+                tvShowImage.attr("class", "gif");
+                tvShowImage.attr("data-still", results[i].images.fixed_height_still.url);
+                tvShowImage.attr("data-animate", results[i].images.fixed_height.url);
+                tvShowImage.attr("data-state", "still");
+
 
                 tvShowDiv.append(p);
                 tvShowDiv.append(tvShowImage);
 
                $("#gifs-appear-here").prepend(tvShowDiv);
 
+               
+
             }
         })
     })
 
-    $(".gif").on("click", function() {
+    $(document).on("click", ".gif", function() {
         let state = $(this).attr("data-state");
 
         if (state === "still") {
@@ -53,18 +61,19 @@ $(document).ready(function () {
         }
     })
 
-    ,function renderButtons() {
-        $("#tvShowButtons").empty();
 
-    }
 
-        $("#addTvShow").on("click", function(event){
+
+
+        $(document).on("click", ".btn", function(event){
             event.preventDefault();
 
-            let topic = $("#tvShow-input").val().trim();
-            topics.push(topic);
-            $("form").trigger("reset")
-            renderButtons();
+            let input = $("#tvShow-input").val().trim();
+            topics.push(input);
+            $(`<button value="${topics[i]}">${topics[i]}</button>`);
+
+            buttons.appendTo("#topics");
+            
         });
     });
 
